@@ -1,0 +1,727 @@
+{
+	"info": {
+		"_postman_id": "adc7b263-e46e-4c80-832a-1bf5d25ece4c",
+		"name": "Harakiri API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Generate access_token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set('delayed_run', 'true');",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/token/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Credentials",
+			"item": [
+				{
+					"name": "Get credentials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/credentials/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"credentials",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get credential",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/credentials/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"credentials",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create credential",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"type\": \"aws\",\n    \"name\": \"AWS Test Account\",\n    \"description\": \"\",\n    \"aws_access_key_id\": \"********************\",\n    \"aws_secret_access_key\": \"****************************************\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/credentials/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"credentials",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update credential",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 2,\n    \"type\": \"aws\",\n    \"name\": \"AWS Test Account\",\n    \"description\": \"\",\n    \"aws_region\": \"eu_west_3\",\n    \"aws_access_key_id\": \"********************\",\n    \"aws_secret_access_key\": \"****************************************\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/credentials/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"credentials",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sources",
+			"item": [
+				{
+					"name": "Get sources",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/sources/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sources",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get source",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/sources/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sources",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create source",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"name\": \"Gitlab Test Repository\",\n    \"url\": \"https://gitlab.codex-soft.net/denis.sventitsky/test.git\",\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"token\": \"**************************\",\n    \"description\": \"\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/sources/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sources",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update source",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"name\": \"Gitlab Test Repository\",\n    \"url\": \"https://gitlab.codex-soft.net/denis.sventitsky/test.git\",\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"token\": \"**************************\",\n    \"description\": \"\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/sources/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sources",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Boilerplates",
+			"item": [
+				{
+					"name": "Get boilerplates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/boilerplates/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"boilerplates",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Get projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/projects/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/projects/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Project\",\n    \"description\": \"\",\n    \"user\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/projects/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update project",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Project\",\n    \"description\": \"Test Description\",\n    \"user\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/projects/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deployments",
+			"item": [
+				{
+					"name": "Histories",
+					"item": [
+						{
+							"name": "Get histories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/histories/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"histories",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get history",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/histories/{{object_id}}/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"histories",
+										"{{object_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get history by task_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/histories/?task_id={{task_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"histories",
+										""
+									],
+									"query": [
+										{
+											"key": "task_id",
+											"value": "{{task_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get deployments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/deployments/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deployments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get deployment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/deployments/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deployments",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create deployment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Frontend Deployment\",\n    \"description\": \"\",\n    \"aws_region\": \"eu_west_3\",\n    \"project\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"environment\": \"stage\"\n    },\n    \"outputs\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/deployments/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deployments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update deployment",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Frontend Deployment\",\n    \"description\": \"\",\n    \"project\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"owner\": \"user\",\n        \"project\": \"test\",\n        \"environment\": \"stage\"\n    },\n    \"outputs\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/deployments/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deployments",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start deployment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deployment_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/deploy/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deploy",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Following script is executed before every request in this collection. ",
+					"",
+					"// Introduce delay in running the APIs only during collection/folder run.",
+					"// Delay wont be introduced if the APIs are running individually in postman app",
+					"if (pm.variables.get('delayed_run')) {",
+					"  setTimeout(() => {}, 1000); // in milliseconds",
+					"}",
+					"",
+					"// This script obtains access_token by invoking Harakiri API and stores it in the collection variable with same name `access_token`. This token is then reused as an Bearer Token for each API invocation until. The script obtains a new access_token automatically when the original one is expired. When the email is changed, original access_token is discarded and replaced with new one obtained agains that new email and password pair. ",
+					"",
+					"const auth_request = {",
+					"    url: pm.variables.get(\"base_url\")+'/api/v1/token/',",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/json'",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"            \"email\": pm.variables.get(\"email\"),",
+					"            \"password\": pm.variables.get(\"password\")",
+					"        })",
+					"    }",
+					"};",
+					"",
+					"//console.info('Invoking: ', pm.info.requestName, pm.info.requestId);",
+					"if(pm.request.url.path.join('/').includes('/api/v1/token')) {",
+					"    // excude token generation API from reusing the token.",
+					"    return;",
+					"}",
+					"var needNewToken = true;",
+					"if (!pm.collectionVariables.get('access_token_expiry') ||",
+					"    !pm.collectionVariables.get('access_token') ||",
+					"    !pm.collectionVariables.get('access_token_for')) {",
+					"    console.log('access_token or its expiry date are missing.');",
+					"} else if (pm.collectionVariables.get('access_token_expiry') <= (new Date()).getTime()) {",
+					"    console.log('access_token is expired')",
+					"} else if (pm.collectionVariables.get('access_token_for') != pm.variables.get(\"email\")) {",
+					"    console.log('email is changed', ",
+					"        pm.collectionVariables.get('access_token_for'), ",
+					"        pm.variables.get(\"email\"))",
+					"} else {",
+					"    //console.log('Reusing previous access_token, valid until ', new Date(pm.collectionVariables.get('access_token_expiry')));",
+					"    needNewToken = false;",
+					"}",
+					"",
+					"if (needNewToken === true) {",
+					"",
+					"    // clear cached token before obtaining a new one",
+					"    pm.collectionVariables.unset('access_token');",
+					"    pm.collectionVariables.unset('access_token_expiry');",
+					"    pm.collectionVariables.unset('access_token_for');",
+					"",
+					"    pm.sendRequest(auth_request, function(err, response) {",
+					"        if (response.code === 200) {",
+					"            console.log('Saving the access_token')",
+					"            var responseJson = response.json();",
+					"            pm.collectionVariables.set('access_token', responseJson.access)",
+					"",
+					"            var expiryDate = new Date();",
+					"            expiryDate.setSeconds(expiryDate.getSeconds() + 10800);",
+					"            //console.log('Saving the access_token_expiry', expiryDate.getTime());",
+					"            pm.collectionVariables.set('access_token_expiry', expiryDate.getTime());",
+					"            //console.log('Saving the access_token_for');",
+					"            pm.collectionVariables.set('access_token_for', pm.variables.get(\"email\"));",
+					"",
+					"        } else {",
+					"            console.error(\"Failed to obtain access_token\", err, response.code, response.headers.get('Response'), response.json());",
+					"        }",
+					"    });",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "default"
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "access_token_expiry",
+			"value": ""
+		},
+		{
+			"key": "access_token_for",
+			"value": ""
+		}
+	]
+}

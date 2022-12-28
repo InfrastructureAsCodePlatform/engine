@@ -1,0 +1,38 @@
+celery==5.2.7
+flower==1.2.0
+redis==4.3.5
+psycopg2==2.9.5
+GitPython==3.1.29
+docker==6.0.1
+mypy==0.991
+retry2==0.9.4
+cookiecutter==2.1.1
+pydevd-pycharm~=222.4459.20
+
+# Django
+# ------------------------------------------------------------------------------
+django==4.1.4
+django-json-widget==1.1.1
+django-filter==22.1
+django-model-utils==4.3.1
+django-health-check==3.17.0
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.2.2
+django-encrypted-model-fields==0.6.5
+
+# Code quality
+# ------------------------------------------------------------------------------
+black==22.12.0
+isort==5.11.4
+flake8==6.0.0
+flake8-isort==5.0.3
+pre-commit==2.20.0
+
+# Testing
+# ------------------------------------------------------------------------------
+pytest==7.2.0
+pytest-django==4.5.2
+pytest-cookies==0.6.1
+coverage==6.5.0
+pytest-cov==4.0.0
+factory-boy==3.2.1

@@ -1,0 +1,177 @@
+version: '3.9'
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  tmp:
+  postgres-data:
+  redis-data:
+  docker-certs-ca:
+  docker-certs-client:
+  localstack-data:
+
+services:
+  harakiri-frontend:
+    image: node:14.13.0-alpine
+    working_dir: /usr/src/nuxt-app
+    command:
+      - sh
+      - -c
+      - |
+        npm install
+        npm run dev
+    environment:
+      ENV NUXT_HOST: 0.0.0.0
+      ENV NUXT_PORT: 3001
+    ports:
+      - target: 3001
+        published: 3001
+        protocol: tcp
+        mode: host
+    volumes:
+      - ./harakiri/frontend:/usr/src/nuxt-app
+    depends_on:
+      - harakiri-backend
+    networks:
+      - network
+
+  harakiri-backend:
+    build:
+      context: ./
+      dockerfile: ./harakiri/Dockerfile
+    command:
+      - bash
+      - -c
+      - |
+        pip --cache-dir=/usr/src/harakiri/.pip-cache install -r requirements.txt
+        python manage.py migrate
+        python manage.py create_superuser
+        python manage.py runserver 0.0.0.0:8000
+    restart: on-failure
+    env_file:
+      - harakiri/local/python.env
+    ports:
+      - target: 8000
+        published: 8000
+        protocol: tcp
+        mode: host
+    volumes:
+      - ./harakiri:/usr/src/harakiri/
+      - ./harakiri/.pip-cache:/usr/src/harakiri/.pip-cache
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - network
+
+  harakiri-worker-general:
+    build:
+      context: ./
+      dockerfile: ./harakiri/Dockerfile
+    command: /usr/local/bin/celery -A harakiri worker -E -l debug -c 1 -Q celery-general -n celery-general
+    restart: on-failure
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_TLS_VERIFY: 1
+      DOCKER_CERT_PATH: /certs/client
+      DOCKER_TLS_CERTDIR: /certs
+    env_file:
+      - harakiri/local/python.env
+    volumes:
+      - tmp:/tmp
+      - docker-certs-client:/certs/client:ro
+      - ./harakiri:/usr/src/harakiri/
+      - ./harakiri/.pip-cache:/usr/src/harakiri/.pip-cache
+    depends_on:
+      docker:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - network
+
+  docker:
+    image: docker:20.10.21-dind
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
+    volumes:
+      - docker-certs-ca:/certs/ca
+      - docker-certs-client:/certs/client
+      - tmp:/tmp
+    expose:
+        - 2376
+    networks:
+      - network
+
+  postgres:
+    image: "postgres:15.1-alpine"
+    env_file:
+      - harakiri/local/postgres.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+        mode: host
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - network
+
+  redis:
+    image: "redis:7.0.6-alpine"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis-data:/data
+    networks:
+      - network
+
+  localstack:
+    image: "localstack/localstack:0.14.5"
+    environment:
+      - DEBUG=1
+      - SERVICES=s3
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - DATA_DIR=/localstack/data
+    ports:
+      - "4566:4566"
+    volumes:
+      - localstack-data:/localstack/data
+      - ./localstack:/docker-entrypoint-initaws.d
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - network
+
+  flower:
+    build:
+      context: ./
+      dockerfile: ./harakiri/Dockerfile
+    command: /usr/local/bin/celery flower -A harakiri --address=0.0.0.0 --port=5555 --broker=redis://redis:6379/1
+    restart: on-failure
+    env_file:
+      - harakiri/local/python.env
+    ports:
+      - target: 5555
+        published: 5555
+        protocol: tcp
+        mode: host
+    volumes:
+      - ./harakiri:/usr/src/harakiri/
+      - ./harakiri/.pip-cache:/usr/src/harakiri/.pip-cache
+    networks:
+      - network
