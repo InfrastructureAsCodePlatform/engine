@@ -14,8 +14,8 @@ volumes:
 
 services:
   harakiri-frontend:
-    image: node:14.13.0-alpine
-    working_dir: /usr/src/nuxt-app
+    image: node:16-alpine
+    working_dir: /usr/src/frontend
     command:
       - sh
       - -c
@@ -23,15 +23,17 @@ services:
         npm install
         npm run dev
     environment:
-      ENV NUXT_HOST: 0.0.0.0
-      ENV NUXT_PORT: 3001
+      FRONTEND_HOST: 0.0.0.0
+      FRONTEND_PORT: 3001
+      API_BASE: harakiri-backend
+      API_PORT: 8000
     ports:
       - target: 3001
         published: 3001
         protocol: tcp
         mode: host
     volumes:
-      - ./harakiri/frontend:/usr/src/nuxt-app
+      - ./harakiri/frontend:/usr/src/frontend
     depends_on:
       - harakiri-backend
     networks:
