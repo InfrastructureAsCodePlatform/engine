@@ -9,6 +9,7 @@ from rest_framework.status import (
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
+from harakiri.core.models import BaseModel
 from harakiri.core.viewsets import ModelViewSetWithoutDestroy
 from harakiri.deployments.models import Deployment, History
 from harakiri.deployments.serializers import DeploymentSerializer, HistorySerializer
@@ -52,8 +53,13 @@ class DeployApiView(APIView):
         for field, configuration in deployment.boilerplate.inputs.items():
             if field not in inputs:
                 if configuration["value"]:
-                    inputs[field] = getattr(deployment, configuration["value"])
+                    model = deployment
+                    for path in configuration["value"].split("__"):
+                        value = getattr(model, path)
+                        if isinstance(value, BaseModel):
+                            model = value
+                    inputs[field] = value
                 elif bool(configuration["required"]):
-                    Response(data={"msg": f"required {field} doesn't exist."}, status=HTTP_400_BAD_REQUEST)
+                    return Response(data={"msg": f"required {field} doesn't exist."}, status=HTTP_400_BAD_REQUEST)
         history = deployment.launch(inputs=inputs)
         return Response(data={"msg": "Deployment started", "task_id": history.task_id}, status=HTTP_201_CREATED)

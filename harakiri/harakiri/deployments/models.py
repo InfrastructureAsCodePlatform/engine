@@ -1,5 +1,3 @@
-import uuid
-
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from model_utils import FieldTracker
@@ -18,12 +16,12 @@ class Deployment(BaseModel):
     source = models.ForeignKey(Source, null=True, blank=True, on_delete=models.SET_NULL)
     boilerplate = models.ForeignKey(Boilerplate, on_delete=models.CASCADE)
 
-    name = models.CharField("Name", max_length=32, null=False, blank=False)
-    identifier = models.CharField("Identifier", max_length=40, editable=False, unique=True)
+    name = models.CharField("Name", max_length=128, null=False, blank=False)
     description = models.TextField("Description", null=True, blank=True)
 
     # aws
     aws_region = models.CharField("AWS_REGION", max_length=16, choices=AWS_REGIONS, null=True, blank=True)
+    environment = models.CharField("Environment", max_length=10, null=False, blank=False)
 
     # source overwrite
     branch = models.CharField("Branch", max_length=32, null=True, blank=True)
@@ -51,10 +49,9 @@ class Deployment(BaseModel):
 
     def save(self, *args, **kwargs):
         new, changed = not self.id, self.tracker.changed()
-        if new and self.name:
-            self.identifier = self.name.lower().replace(" ", "-") + uuid.uuid4().hex[:8].lower()
+        self.environment = "".join(filter(str.isalnum, self.environment)).lower()
         if not new:
-            for field in ["identifier", "aws_region"]:
+            for field in ["aws_region", "environment"]:
                 if getattr(self, field) and field in changed:
                     setattr(self, field, changed[field])
         super().save(*args, **kwargs)

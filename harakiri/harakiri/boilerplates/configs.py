@@ -7,4 +7,5 @@ TYPE_CHOICES = Choices(
 SUBTYPE_CHOICES = Choices(
     ("terragrunt", "Terragrunt"),
     ("gitlab_ci", "Gitlab CI"),
+    ("github_actions", "Github Actions"),
 )

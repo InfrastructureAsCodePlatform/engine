@@ -1,5 +1,6 @@
 from django.db import models
 from encrypted_model_fields.fields import EncryptedCharField
+from furl import furl
 
 from harakiri.core.models import BaseModel
 from harakiri.users.models import User
@@ -20,3 +21,16 @@ class Source(BaseModel):
         app_label = "sources"
         verbose_name_plural = "Sources"
         ordering = ["-id"]
+
+    @property
+    def repository_name(self):
+        return self.url.split(".git")[0].split("/")[-1] if self.url else "-"
+
+    @property
+    def repository_auth_url(self):
+        if self.url and self.token:
+            f = furl(self.url)
+            f.username = f.pathstr.split("/")[1]
+            f.password = self.token
+            return f.url
+        return "-"

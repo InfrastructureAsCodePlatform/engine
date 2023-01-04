@@ -11,6 +11,10 @@ class TerragruntLogs:
                 break
 
         result = {}
+
+        if position is None:
+            return result
+
         for line in lines[position:]:
             key, value = line.split(" = ")
             result[key] = value.replace('"', "")

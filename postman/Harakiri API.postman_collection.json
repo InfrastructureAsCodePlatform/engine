@@ -520,7 +520,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Frontend Deployment\",\n    \"description\": \"\",\n    \"aws_region\": \"eu_west_3\",\n    \"project\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"environment\": \"stage\"\n    },\n    \"outputs\": null\n}",
+							"raw": "{\n    \"name\": \"Frontend Deployment\",\n    \"description\": \"\",\n    \"aws_region\": \"eu-west-3\",\n    \"environment\": \"stage\",\n    \"project\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"test\": \"value\"\n    },\n    \"outputs\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"

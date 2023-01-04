@@ -1,5 +1,6 @@
 # Custom
 .idea
+.nuxt
 .node_modules
 .pip-cache
 static

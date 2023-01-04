@@ -11,6 +11,7 @@ DEPLOYMENT_FIELDS = [
     "name",
     "description",
     "aws_region",
+    "environment",
     "project",
     "credential",
     "source",

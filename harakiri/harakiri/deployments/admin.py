@@ -13,9 +13,9 @@ class DeploymentAdmin(admin.ModelAdmin, DeploymentAdminMixin):
         models.JSONField: {"widget": JSONEditorWidget},
     }
     list_filter = []
-    list_display = ["name", "project", "source", "boilerplate"]
+    list_display = ["id", "name", "project", "source", "boilerplate"]
     search_fields = ["name"]
-    readonly_fields = ["identifier", "histories_url", "created", "modified"]
+    readonly_fields = ["histories_url", "created", "modified"]
     fieldsets = [
         (
             None,
@@ -26,9 +26,9 @@ class DeploymentAdmin(admin.ModelAdmin, DeploymentAdminMixin):
                     "source",
                     "boilerplate",
                     "name",
-                    "identifier",
                     "description",
                     "aws_region",
+                    "environment",
                     "branch",
                     "tag",
                     "path",
@@ -40,7 +40,6 @@ class DeploymentAdmin(admin.ModelAdmin, DeploymentAdminMixin):
         ),
         ("System", {"classes": ["collapse"], "fields": ["created", "modified"]}),
     ]
-    ordering = ["name"]
     filter_horizontal = []
     actions = ["launch"]
 

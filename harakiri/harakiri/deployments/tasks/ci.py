@@ -1,5 +1,5 @@
-import os
 import shutil
+import tempfile
 
 from git import Repo
 
@@ -13,18 +13,24 @@ class CI(Deployment):
     abstract = True
 
     def execute(self, history: History, path: str, tempdir: str):
-        boilerplate = history.deployment.boilerplate
-        repo = Repo.clone_from(boilerplate.url, tempdir)
+        source = history.deployment.source
+        tempdir2 = tempfile.mkdtemp()
+        try:
+            repo = Repo.clone_from(source.repository_auth_url, tempdir2)
 
-        if boilerplate.branch:
-            repo.git.checkout(boilerplate.branch)
+            if source.branch:
+                repo.git.checkout(source.branch)
 
-        shutil.copytree(path, os.path.join(tempdir, boilerplate.url.split("/")[-1][0:-4]))
+            path = f"{tempdir}/{history.inputs['project_id']}-{history.inputs['deployment_id']}"
+            shutil.copytree(path, tempdir2, dirs_exist_ok=True)
 
-        repo.git.add(all=True)
-        repo.index.commit("Configure CI for the project.")
-        origin = repo.remote(name="origin")
-        origin.push()
+            if repo.untracked_files or [item.a_path for item in repo.index.diff(None)]:
+                repo.git.add(all=True)
+                repo.index.commit("Configure CI for the project.")
+                origin = repo.remote(name="origin")
+                origin.push()
+        finally:
+            shutil.rmtree(tempdir2)
 
 
 if __name__ == "__main__":

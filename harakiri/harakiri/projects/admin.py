@@ -13,9 +13,9 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = []
     list_display = ["name", "user", "description"]
     search_fields = ["name", "description"]
-    readonly_fields = ["created", "modified"]
+    readonly_fields = ["identifier", "created", "modified"]
     fieldsets = [
-        (None, {"fields": ["user", "name", "description"]}),
+        (None, {"fields": ["user", "name", "identifier", "description"]}),
         ("System", {"classes": ["collapse"], "fields": ["created", "modified"]}),
     ]
     ordering = ["name"]

@@ -11,7 +11,7 @@ class BoilerplateAdmin(admin.ModelAdmin):
         models.JSONField: {"widget": JSONEditorWidget},
     }
     list_filter = ["type", "subtype"]
-    list_display = ["name", "owner", "is_active"]
+    list_display = ["id", "name", "owner", "is_active"]
     search_fields = ["name"]
     readonly_fields = ["created", "modified"]
     fieldsets = [

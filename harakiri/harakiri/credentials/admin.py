@@ -25,5 +25,5 @@ class CredentialAdmin(admin.ModelAdmin):
         ),
         ("System", {"classes": ["collapse"], "fields": ["created", "modified"]}),
     ]
-    ordering = ["name"]
+    ordering = ["-id"]
     filter_horizontal = []

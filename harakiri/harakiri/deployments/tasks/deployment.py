@@ -25,8 +25,9 @@ class Deployment(Task):
             self.execute(history, path, tempdir)
             history.modify(status=STATUS.completed)
         except Exception as e:
-            shutil.rmtree(tempdir)
             history.modify(msg=str(e), status=STATUS.failed)
+        finally:
+            shutil.rmtree(tempdir)
 
     def get_boilerplate(self, history: History, tempdir: str):
         boilerplate = history.deployment.boilerplate
