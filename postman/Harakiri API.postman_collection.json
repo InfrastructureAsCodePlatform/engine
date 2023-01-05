@@ -133,7 +133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": 1,\n    \"type\": \"aws\",\n    \"name\": \"AWS Test Account\",\n    \"description\": \"\",\n    \"aws_access_key_id\": \"********************\",\n    \"aws_secret_access_key\": \"****************************************\"\n}",
+							"raw": "{\n    \"user\": 1,\n    \"config\": \"aws\",\n    \"name\": \"AWS Test Account\",\n    \"description\": \"\",\n    \"aws_access_key_id\": \"********************\",\n    \"aws_secret_access_key\": \"****************************************\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -238,7 +238,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": 1,\n    \"name\": \"Gitlab Test Repository\",\n    \"url\": \"https://gitlab.codex-soft.net/denis.sventitsky/test.git\",\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"token\": \"**************************\",\n    \"description\": \"\",\n    \"is_active\": true\n}",
+							"raw": "{\n    \"user\": 1,\n    \"name\": \"Github Test Repository\",\n    \"url\": \"https://github.com/twistedFantasy/test.git\",\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"token\": \"**************************\",\n    \"description\": \"\",\n    \"is_active\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -423,6 +423,216 @@
 			]
 		},
 		{
+			"name": "Environments",
+			"item": [
+				{
+					"name": "Get environments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/environments/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"environments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get environment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/environments/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"environments",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create environment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"project\": 1,\n    \"name\": \"stage\",\n    \"description\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/environments/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"environments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update environment",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"test description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/environments/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"environments",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blades",
+			"item": [
+				{
+					"name": "Get blades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/blades/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blades",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get blade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/blades/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blades",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create blade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"environment\": 1,\n    \"name\": \"Frontend\",\n    \"description\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/blades/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blades",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update blade",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"environment\": 1,\n    \"name\": \"Frontend\",\n    \"description\": \"test description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/blades/{{object_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blades",
+								"{{object_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Deployments",
 			"item": [
 				{
@@ -545,7 +755,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Frontend Deployment\",\n    \"description\": \"\",\n    \"aws_region\": \"eu-west-3\",\n    \"environment\": \"stage\",\n    \"project\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"test\": \"value\"\n    },\n    \"outputs\": null\n}",
+							"raw": "{\n    \"name\": \"Frontend Deployment on AWS\",\n    \"description\": \"\",\n    \"aws_region\": \"eu-west-3\",\n    \"project\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"user\": 1,\n    \"blade\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"test\": \"value\"\n    },\n    \"outputs\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -574,7 +784,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Frontend Deployment\",\n    \"description\": \"\",\n    \"project\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"owner\": \"user\",\n        \"project\": \"test\",\n        \"environment\": \"stage\"\n    },\n    \"outputs\": null\n}",
+							"raw": "{\n    \"name\": \"Frontend Deployment on AWS\",\n    \"description\": \"test description\",\n    \"aws_region\": \"eu-west-3\",\n    \"user\": 1,\n    \"blade\": 1,\n    \"credential\": 1,\n    \"source\": null,\n    \"boilerplate\": 1,\n    \"branch\": null,\n    \"tag\": null,\n    \"path\": null,\n    \"inputs\": {\n        \"test\": \"value\"\n    },\n    \"outputs\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"

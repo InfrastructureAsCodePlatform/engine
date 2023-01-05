@@ -5,7 +5,7 @@ from harakiri.credentials.models import Credential
 
 @admin.register(Credential)
 class CredentialAdmin(admin.ModelAdmin):
-    list_filter = ["type"]
+    list_filter = ["cloud"]
     list_display = ["id", "name", "user"]
     search_fields = ["name"]
     readonly_fields = ["created", "modified"]
@@ -15,7 +15,7 @@ class CredentialAdmin(admin.ModelAdmin):
             {
                 "fields": [
                     "user",
-                    "type",
+                    "cloud",
                     "name",
                     "description",
                     "aws_access_key_id",

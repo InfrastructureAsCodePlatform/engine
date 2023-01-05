@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 from harakiri.boilerplates.models import Boilerplate
 from harakiri.users.models import User
 
-BOILERPLATE_FIELDS = ["id", "owner", "name", "description", "type", "inputs", "outputs", "is_active"]
+BOILERPLATE_FIELDS = ["id", "owner", "name", "description", "is_active"]
 
 
 class BoilerplateSerializer(ModelSerializer):

@@ -47,10 +47,13 @@ INSTALLED_APPS = [
     "encrypted_model_fields",
     "harakiri.core",
     "harakiri.users",
+    "harakiri.boilerplates",
+    "harakiri.modules",
     "harakiri.credentials",
     "harakiri.sources",
-    "harakiri.boilerplates",
     "harakiri.projects",
+    "harakiri.environments",
+    "harakiri.blades",
     "harakiri.deployments",
 ]
 

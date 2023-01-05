@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
+from harakiri.blades.views import BladeViewSet
 from harakiri.boilerplates.views import BoilerplateReadOnlyModelViewSet
 from harakiri.core.views import ConfigsView
 from harakiri.credentials.views import CredentialViewSet
@@ -15,14 +16,17 @@ from harakiri.deployments.views import (
     DeploymentViewSet,
     HistoryReadOnlyModelViewSet,
 )
+from harakiri.environments.views import EnvironmentViewSet
 from harakiri.projects.views import ProjectViewSet
 from harakiri.sources.views import SourceViewSet
 
 router = routers.DefaultRouter()
+router.register(r"boilerplates", BoilerplateReadOnlyModelViewSet)
 router.register(r"credentials", CredentialViewSet)
 router.register(r"sources", SourceViewSet)
-router.register(r"boilerplates", BoilerplateReadOnlyModelViewSet)
 router.register(r"projects", ProjectViewSet)
+router.register(r"environments", EnvironmentViewSet)
+router.register(r"blades", BladeViewSet)
 router.register(r"deployments", DeploymentViewSet)
 router.register(r"histories", HistoryReadOnlyModelViewSet)
 

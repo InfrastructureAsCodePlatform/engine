@@ -1,5 +1,7 @@
 from model_utils.choices import Choices
 
-TYPE_CHOICES = Choices(
+CLOUDS = Choices(
     ("aws", "Amazon AWS"),
+    ("gcloud", "Google Cloud"),
+    ("acloud", "Azure Cloud"),
 )

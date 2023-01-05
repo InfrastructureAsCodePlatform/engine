@@ -11,7 +11,7 @@ class ProjectAdmin(admin.ModelAdmin):
         models.JSONField: {"widget": JSONEditorWidget},
     }
     list_filter = []
-    list_display = ["name", "user", "description"]
+    list_display = ["name", "user"]
     search_fields = ["name", "description"]
     readonly_fields = ["identifier", "created", "modified"]
     fieldsets = [

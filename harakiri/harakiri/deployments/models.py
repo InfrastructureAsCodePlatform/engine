@@ -2,16 +2,18 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from model_utils import FieldTracker
 
+from harakiri.blades.models import Blade
 from harakiri.boilerplates.models import Boilerplate
 from harakiri.core.aws import AWS_REGIONS
 from harakiri.core.models import STATUS, BaseModel
 from harakiri.credentials.models import Credential
-from harakiri.projects.models import Project
 from harakiri.sources.models import Source
+from harakiri.users.models import User
 
 
 class Deployment(BaseModel):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    blade = models.ForeignKey(Blade, on_delete=models.CASCADE)
     credential = models.ForeignKey(Credential, null=True, blank=True, on_delete=models.SET_NULL)
     source = models.ForeignKey(Source, null=True, blank=True, on_delete=models.SET_NULL)
     boilerplate = models.ForeignKey(Boilerplate, on_delete=models.CASCADE)
@@ -21,7 +23,6 @@ class Deployment(BaseModel):
 
     # aws
     aws_region = models.CharField("AWS_REGION", max_length=16, choices=AWS_REGIONS, null=True, blank=True)
-    environment = models.CharField("Environment", max_length=10, null=False, blank=False)
 
     # source overwrite
     branch = models.CharField("Branch", max_length=32, null=True, blank=True)
@@ -49,9 +50,8 @@ class Deployment(BaseModel):
 
     def save(self, *args, **kwargs):
         new, changed = not self.id, self.tracker.changed()
-        self.environment = "".join(filter(str.isalnum, self.environment)).lower()
         if not new:
-            for field in ["aws_region", "environment"]:
+            for field in ["aws_region"]:
                 if getattr(self, field) and field in changed:
                     setattr(self, field, changed[field])
         super().save(*args, **kwargs)

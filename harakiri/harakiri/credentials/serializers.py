@@ -6,7 +6,7 @@ from harakiri.users.models import User
 CREDENTIAL_FIELDS = [
     "id",
     "user",
-    "type",
+    "cloud",
     "name",
     "description",
     "aws_access_key_id",

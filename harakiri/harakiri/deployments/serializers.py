@@ -1,18 +1,19 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 
+from harakiri.blades.models import Blade
 from harakiri.boilerplates.models import Boilerplate
 from harakiri.credentials.models import Credential
 from harakiri.deployments.models import Deployment, History
-from harakiri.projects.models import Project
 from harakiri.sources.models import Source
+from harakiri.users.models import User
 
 DEPLOYMENT_FIELDS = [
     "id",
     "name",
     "description",
     "aws_region",
-    "environment",
-    "project",
+    "user",
+    "blade",
     "credential",
     "source",
     "boilerplate",
@@ -26,8 +27,9 @@ HISTORY_FIELDS = ["id", "msg", "task_id", "attempt", "status", "deployment"]
 
 
 class DeploymentSerializer(ModelSerializer):
-    id = PrimaryKeyRelatedField(queryset=Project.objects.all(), required=False)
-    project = PrimaryKeyRelatedField(queryset=Project.objects.all())
+    id = PrimaryKeyRelatedField(queryset=Deployment.objects.all(), required=False)
+    user = PrimaryKeyRelatedField(queryset=User.objects.all())
+    blade = PrimaryKeyRelatedField(queryset=Blade.objects.all())
     credential = PrimaryKeyRelatedField(queryset=Credential.objects.all(), allow_null=True, required=False)
     source = PrimaryKeyRelatedField(queryset=Source.objects.all(), allow_null=True, required=False)
     boilerplate = PrimaryKeyRelatedField(queryset=Boilerplate.objects.all())

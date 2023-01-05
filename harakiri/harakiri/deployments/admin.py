@@ -13,7 +13,7 @@ class DeploymentAdmin(admin.ModelAdmin, DeploymentAdminMixin):
         models.JSONField: {"widget": JSONEditorWidget},
     }
     list_filter = []
-    list_display = ["id", "name", "project", "source", "boilerplate"]
+    list_display = ["id", "name", "blade", "source", "boilerplate"]
     search_fields = ["name"]
     readonly_fields = ["histories_url", "created", "modified"]
     fieldsets = [
@@ -21,14 +21,13 @@ class DeploymentAdmin(admin.ModelAdmin, DeploymentAdminMixin):
             None,
             {
                 "fields": [
-                    "project",
+                    "blade",
                     "credential",
                     "source",
                     "boilerplate",
                     "name",
                     "description",
                     "aws_region",
-                    "environment",
                     "branch",
                     "tag",
                     "path",
