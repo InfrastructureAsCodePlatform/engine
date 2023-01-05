@@ -58,6 +58,31 @@
 			]
 		},
 		{
+			"name": "Configs",
+			"item": [
+				{
+					"name": "Get configs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/configs/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"configs",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Credentials",
 			"item": [
 				{

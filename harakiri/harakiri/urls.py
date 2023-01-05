@@ -8,6 +8,7 @@ from rest_framework_simplejwt.views import (
 )
 
 from harakiri.boilerplates.views import BoilerplateReadOnlyModelViewSet
+from harakiri.core.views import ConfigsView
 from harakiri.credentials.views import CredentialViewSet
 from harakiri.deployments.views import (
     DeployApiView,
@@ -33,5 +34,6 @@ urlpatterns = [
     re_path(r"^healthcheck/", include("health_check.urls")),
     # our apps
     path("api/v1/", include(router.urls)),
+    path("api/v1/configs/", ConfigsView.as_view(), name="configs"),
     path("api/v1/deploy/", DeployApiView.as_view(), name="deploy"),
 ]
